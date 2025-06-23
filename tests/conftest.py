@@ -16,6 +16,7 @@ def driver(request):
         my_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
     else:
         raise TypeError(f"Expected 'chrome' or 'firefox', but got {browser}")
+    my_driver.maximize_window()
     yield my_driver
     print(f"Closing {browser} driver")
     my_driver.quit()
