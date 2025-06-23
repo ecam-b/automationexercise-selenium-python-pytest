@@ -11,6 +11,8 @@ class NavbarPage(BasePage):
     __logout_link = (By.PARTIAL_LINK_TEXT, "Logout")
     __contact_us_link = (By.PARTIAL_LINK_TEXT, "Contact us")
     __home_link = (By.PARTIAL_LINK_TEXT, "Home")
+    __test_cases_link = (By.PARTIAL_LINK_TEXT, "Test Cases")
+    __products_link = (By.PARTIAL_LINK_TEXT, "Products")
 
     def __init__(self, driver : WebDriver):
         super().__init__(driver)
@@ -32,3 +34,9 @@ class NavbarPage(BasePage):
 
     def click_home_link(self):
         super()._click(self.__home_link)
+
+    def click_test_cases_link(self):
+        super()._click(self.__test_cases_link)
+
+    def click_products_link(self):
+        super()._click(self.__products_link)
