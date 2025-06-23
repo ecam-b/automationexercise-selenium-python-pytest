@@ -4,7 +4,7 @@ from pages_objects.home_page import HomePage
 from pages_objects.navbar_page import NavbarPage
 
 
-class TestSubcription:
+class TestSubscription:
 
     @pytest.mark.subcription
     @pytest.mark.functional

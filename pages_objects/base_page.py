@@ -1,6 +1,8 @@
 import os
+import time
 
 from selenium.common import NoSuchElementException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -24,6 +26,14 @@ class BasePage:
         element = self._driver.find_element(*locator)
         self._scroll_to_element(element)
         return element
+
+    def _find_all(self, locator: tuple, time: int = 10) -> list[WebElement]:
+        """
+        Encuentra y retorna una lista de WebElements utilizando el localizador proporcionado.
+        """
+        wait = WebDriverWait(self._driver, time)
+        elements = wait.until(ec.visibility_of_all_elements_located(locator))
+        return elements
 
     def _type(self, locator: tuple, text: str, time: int = 10):
         """
@@ -82,7 +92,7 @@ class BasePage:
         """
         return self._driver.current_url
 
-    def is_displayed(self, locator: tuple, time: int = 10) -> bool:
+    def is_displayed(self, locator: tuple) -> bool:
         """
         Verifica si un elemento está visible en la página.
         """
@@ -130,3 +140,11 @@ class BasePage:
         """
         alert = self._switch_to_alert(time)
         alert.dismiss()
+
+    def _hover_over_element(self, element: WebElement):
+        """
+        Realiza un 'hover' (pasar el mouse por encima) sobre un elemento.
+        """
+        actions = ActionChains(self._driver)
+        actions.move_to_element(element).perform()
+        time.sleep(.5)  # Pequeña pausa para permitir que los efectos del hover se muestren
