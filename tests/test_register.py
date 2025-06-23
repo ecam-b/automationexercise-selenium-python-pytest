@@ -23,10 +23,11 @@ class TestRegister:
         navbar = NavbarPage(driver)
         navbar.click_signup_link()
         # 5. Verify 'New User Signup!' is visible
+        login_page = LoginPage(driver)
+        assert login_page.is_new_user_signup_header_displayed(), "El header 'New User Signup!' no es visible"
         # 6. Enter name and email address
         # 7. Click 'Signup' button
-        login_page = LoginPage(driver)
-        login_page.fill_signup_form("Test User", "test-auto41@gmail.com")
+        login_page.execute_signup_form("Test User", "test-auto41@gmail.com")
         # 8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
         signup_page = SignupPage(driver)
         assert signup_page.is_enter_account_info_displayed(), "Signup form header no es visible"
@@ -51,3 +52,22 @@ class TestRegister:
         # 18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         delete_account_page = DeleteAccountPage(driver)
         assert delete_account_page.get_header_text() == "account deleted!", "En la página de cuenta eliminada no se muestra el mensaje correcto"
+
+    def test_register_user_with_existing_email(self, driver):
+        # 1. Launch browser
+        home_page = HomePage(driver)
+        # 2. Navigate to url 'http://automationexercise.com'
+        home_page.open()
+        # 3. Verify that home page is visible successfully
+        assert home_page.is_home_page_displayed(), "Home page no es visible"
+        # 4. Click on 'Signup / Login' button
+        navbar = NavbarPage(driver)
+        navbar.click_signup_link()
+        # 5. Verify 'New User Signup!' is visible
+        login_page = LoginPage(driver)
+        assert login_page.is_new_user_signup_header_displayed(), "El header 'New User Signup!' no es visible"
+        # 6. Enter name and already registered email address
+        # 7. Click 'Signup' button
+        login_page.execute_signup_form("Sophia Miller", "sophia.miller_789@example.com")
+        # 8. Verify error 'Email Address already exist!' is visible
+        assert login_page.get_signup_error_message() == "email address already exist!", "El mensaje de error no es el esperado"

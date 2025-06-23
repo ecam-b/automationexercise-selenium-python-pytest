@@ -24,7 +24,7 @@ class TestLogin:
         assert login_page.is_login_to_your_account_header_displayed(), "El header 'Login to your account' no es visible"
         # 6. Enter correct email address and password
         # 7. Click 'login' button
-        login_page.execute_login("sophia.miller_789@example.com", "SecureP@ssw0rd!")
+        login_page.execute_login_form("sophia.miller_789@example.com", "SecureP@ssw0rd")
         # 8. Verify that 'Logged in as username' is visible
         assert navbar.is_logged_in_as_user_displayed(), "El usuario no ha iniciado sesión correctamente"
         # 9. Click 'Delete Account' button
@@ -49,9 +49,9 @@ class TestLogin:
         assert login_page.is_login_to_your_account_header_displayed(), "El header 'Login to your account' no es visible"
         # 6. Enter incorrect email address and password
         # 7. Click 'login' button
-        login_page.execute_login("wronEmail@example.com", "wrongPassword123")
+        login_page.execute_login_form("wronEmail@example.com", "wrongPassword123")
         # 8. Verify error 'Your email or password is incorrect!' is visible
-        assert login_page.get_error_message() == "your email or password is incorrect!", "El mensaje de error no es el esperado"
+        assert login_page.get_login_error_message() == "your email or password is incorrect!", "El mensaje de error no es el esperado"
 
     # Logout User
     @pytest.mark.login
@@ -67,12 +67,11 @@ class TestLogin:
         navbar = NavbarPage(driver)
         navbar.click_signup_link()
         # 5. Verify 'Login to your account' is visible
-        # 5. Verify 'Login to your account' is visible
         login_page = LoginPage(driver)
         assert login_page.is_login_to_your_account_header_displayed(), "El header 'Login to your account' no es visible"
         # 6. Enter correct email address and password
         # 7. Click 'login' button
-        login_page.execute_login("sophia.miller_789@example.com", "SecureP@ssw0rd!")
+        login_page.execute_login_form("sophia.miller_789@example.com", "SecureP@ssw0rd")
         # 8. Verify that 'Logged in as username' is visible
         assert navbar.is_logged_in_as_user_displayed(), "El usuario no ha iniciado sesión correctamente"
         # 9. Click 'Logout' button

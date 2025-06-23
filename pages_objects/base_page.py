@@ -19,13 +19,15 @@ class BasePage:
 
     def _click(self, locator: tuple, time: int = 10):
         self._wait_until_element_is_clickable(locator, time)
+        self._scroll_to_element(locator)
         self._find(locator).click()
 
-    def _scroll_to_element(self, element: WebElement):
+    def _scroll_to_element(self, locator: tuple):
         """
         Desplaza la vista del navegador para que el elemento especificado
         esté en el centro de la pantalla.
         """
+        element = self._find(locator)
         self._driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", element)
 
     def _wait_until_element_is_visible(self, locator: tuple, time: int = 10):
@@ -39,7 +41,7 @@ class BasePage:
     def _select_dropdown_by_visible_text(self, locator: tuple, value: str):
         self._wait_until_element_is_visible(locator)
         dropdown = self._find(locator)
-        self._scroll_to_element(dropdown)
+        self._scroll_to_element(locator)
         select = Select(dropdown)
         select.select_by_visible_text(value)
 
