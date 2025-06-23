@@ -8,7 +8,7 @@ from pages_objects.navbar_page import NavbarPage
 class TestLogin:
 
     @pytest.mark.login
-    @pytest.mark.funcional
+    @pytest.mark.functional
     def test_login_user_with_correct_email_and_password(self, driver):
         # 1. Launch browser
         home_page = HomePage(driver)
@@ -33,7 +33,7 @@ class TestLogin:
 
 
     @pytest.mark.login
-    @pytest.mark.funcional
+    @pytest.mark.functional
     def test_login_user_with_incorrect_email_and_password(self, driver):
         # 1. Launch browser
         home_page = HomePage(driver)
@@ -55,7 +55,7 @@ class TestLogin:
 
     # Logout User
     @pytest.mark.login
-    @pytest.mark.funcional
+    @pytest.mark.functional
     def test_logout_user(self, driver):
         # 1. Launch browser
         home_page = HomePage(driver)

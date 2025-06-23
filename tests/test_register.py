@@ -53,6 +53,8 @@ class TestRegister:
         delete_account_page = DeleteAccountPage(driver)
         assert delete_account_page.get_header_text() == "account deleted!", "En la página de cuenta eliminada no se muestra el mensaje correcto"
 
+    @pytest.mark.register
+    @pytest.mark.functional
     def test_register_user_with_existing_email(self, driver):
         # 1. Launch browser
         home_page = HomePage(driver)

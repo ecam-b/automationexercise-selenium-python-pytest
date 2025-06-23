@@ -1,4 +1,7 @@
+import os
+
 from selenium.common import NoSuchElementException
+from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as ec
@@ -12,6 +15,7 @@ class BasePage:
 
     def _find(self, locator: tuple) -> WebElement:
         return self._driver.find_element(*locator)
+
 
     def _type(self, locator: tuple, text: str, time: int = 10):
         self._wait_until_element_is_visible(locator, time)
@@ -61,3 +65,29 @@ class BasePage:
 
     def _open_url(self, url: str):
       self._driver.get(url)
+
+    def _select_file(self, locator, file_name: str):
+        """
+        Selecciona un archivo del directorio 'files' y lo sube.
+        file_name: El nombre del archivo dentro de la carpeta 'files' (ej. "some-file.txt").
+        """
+        current_script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_script_dir)  # retrocede de 'pages' a la raíz
+        file_path = os.path.join(project_root, "resources", "images", file_name)
+        if not os.path.exists(file_path):
+            print(f"File path: {file_path}")
+            raise FileNotFoundError(f"The file '{file_name}' was not found at '{file_path}'")
+
+        self._type(locator, file_path)
+
+    def _switch_to_alert(self, time: int = 10) -> Alert:
+        wait = WebDriverWait(self._driver, time)
+        return wait.until(ec.alert_is_present())
+
+    def _accept_alert(self, time: int = 10):
+        alert = self._switch_to_alert(time)
+        alert.accept()
+
+    def _dismiss_alert(self, time: int = 10):
+        alert = self._switch_to_alert(time)
+        alert.dismiss()

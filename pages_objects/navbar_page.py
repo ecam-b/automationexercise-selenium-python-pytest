@@ -9,6 +9,8 @@ class NavbarPage(BasePage):
     __logged_is_as_user_link = (By.PARTIAL_LINK_TEXT, "Logged in as")
     __delete_account_link = (By.PARTIAL_LINK_TEXT, "Delete Account")
     __logout_link = (By.PARTIAL_LINK_TEXT, "Logout")
+    __contact_us_link = (By.PARTIAL_LINK_TEXT, "Contact us")
+    __home_link = (By.PARTIAL_LINK_TEXT, "Home")
 
     def __init__(self, driver : WebDriver):
         super().__init__(driver)
@@ -24,3 +26,9 @@ class NavbarPage(BasePage):
 
     def click_logout_link(self):
         super()._click(self.__logout_link)
+
+    def click_contact_us_link(self):
+        super()._click(self.__contact_us_link)
+
+    def click_home_link(self):
+        super()._click(self.__home_link)
