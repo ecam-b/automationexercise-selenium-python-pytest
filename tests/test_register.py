@@ -1,5 +1,3 @@
-import time
-
 import pytest
 
 from pages_objects.account_created_page import AccountCreatedPage
@@ -49,7 +47,7 @@ class TestRegister:
         # 16. Verify that 'Logged in as username' is visible
         assert navbar.is_logged_in_as_user_displayed(), "El usuario no ha iniciado sesión correctamente"
         # 17. Click 'Delete Account' button
-        navbar.click_delete_account_button()
+        navbar.click_delete_account_link()
         # 18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         delete_account_page = DeleteAccountPage(driver)
         assert delete_account_page.get_header_text() == "account deleted!", "En la página de cuenta eliminada no se muestra el mensaje correcto"
