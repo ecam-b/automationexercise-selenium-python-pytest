@@ -13,6 +13,7 @@ class NavbarPage(BasePage):
     __home_link = (By.PARTIAL_LINK_TEXT, "Home")
     __test_cases_link = (By.PARTIAL_LINK_TEXT, "Test Cases")
     __products_link = (By.PARTIAL_LINK_TEXT, "Products")
+    __cart_link = (By.PARTIAL_LINK_TEXT, "Cart")
 
     def __init__(self, driver : WebDriver):
         super().__init__(driver)
@@ -40,3 +41,6 @@ class NavbarPage(BasePage):
 
     def click_products_link(self):
         super()._click(self.__products_link)
+
+    def click_cart_link(self):
+        super()._click(self.__cart_link)
